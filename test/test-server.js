@@ -9,7 +9,7 @@ var app = server.app;
 
 chai.use(chaiHttp);
 
-describe('Shopping List', function() {
+describe('Weapons', function() {
     it('should list items on GET', function(done) {
         chai.request(app)
             .get('/items')
