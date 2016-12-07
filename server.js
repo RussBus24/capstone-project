@@ -32,7 +32,9 @@ if (require.main === module) {
     });
 };
 
-var Weapon = require('models/weapons');
+var Weapon = require('./models/weapons');
+var Franchise = require('./models/franchise');
+var Category = require('./models/category');
 
 app.get('/', function(request, response) {
     Weapon.find(function(err, weapons) {
@@ -75,4 +77,5 @@ app.use('*', function(request, response) {
     });
 });
 
-app.listen(process.env.PORT || 8080);
+exports.app = app;
+exports.runServer = runServer;
