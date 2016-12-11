@@ -30,11 +30,12 @@ if (require.main === module) {
             console.error(err);
         }
     });
-};
+}
 
 var Weapon = require('./models/weapons');
 var Franchise = require('./models/franchise');
 var Category = require('./models/category');
+var TotalWeapon = require('./models/totalweapon');
 
 app.get('/', function(request, response) {
     Weapon.find(function(err, weapon) {
@@ -51,10 +52,10 @@ app.post('/weapon', function(request, response) {
     Weapon.create({
         name: request.body.name,
         cost: request.body.cost,
-        strength: request.body.strength,
-        franchise: request.body.franchise
+        strength: request.body.strength
     }, function(err, weapon) {
         if (err) {
+            console.log(err);
             return response.status(500).json({
                 message: 'A server error occured'
             });
@@ -90,11 +91,27 @@ app.post('/category', function(request, response) {
     });
 });
 
+app.post('/totalweapon', function(request, response) {
+    TotalWeapon.create({
+        
+    }, function(err, totalweapon) {
+        if (err) {
+            return response.status(500).json({
+                message: 'A server error occured'
+            });
+        }
+        response.json(totalweapon);
+    });
+});
+
 app.put('/weapon/:name', function(request, response) {
     Weapon.update({
-        name: request.params.name
+        name: request.body.name,
+        cost: request.body.cost,
+        strength: request.body.strength
     }, function(err, weapon) {
         if (err) {
+            console.log(err);
             return response.status(500).json({
                 message: 'A server error occured'
             });
@@ -103,34 +120,35 @@ app.put('/weapon/:name', function(request, response) {
     });
 });
 
-app.put('/weapon/:cost', function(request, response) {
-    Weapon.update({
-        cost: request.params.cost
-    }, function(err, weapon) {
+app.put('/franchise/:franchise', function(request, response) {
+    Franchise.update({
+        name: request.body.name,
+        publisher: request.body.publisher
+    }, function(err, franchise) {
         if (err) {
             return response.status(500).json({
                 message: 'A server error occured'
             });
         }
-        response.json(weapon);
-    });
-});
-
-app.put('/weapon/:strength', function(request, response) {
-    Weapon.update({
-        cost: request.params.strength
-    }, function(err, weapon) {
-        if (err) {
-            return response.status(500).json({
-                message: 'A server error occured'
-            });
-        }
-        response.json(weapon);
+        response.json(franchise);
     });
 });
 
 app.delete('/weapon/:name', function(request, response) {
     Weapon.remove({
+        name: request.params.name
+    }, function(err, weapon) {
+        if (err) {
+            response.status(500).json({
+                message: 'A server error occured'
+            });
+        }
+        response.json(weapon);
+    });
+});
+
+app.delete('/franchise/:franchise', function(request, response) {
+    Franchise.remove({
         name: request.params.name
     }, function(err, weapon) {
         if (err) {
