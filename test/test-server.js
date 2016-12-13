@@ -3,6 +3,7 @@ var chaiHttp = require('chai-http');
 var server = require('../server.js');
 var Weapon = require('../models/weapons');
 var Franchise = require('../models/franchise');
+var Category = require('../models/category');
 
 var should = chai.should();
 var app = server.app;
@@ -17,9 +18,15 @@ describe('Weapons', function() {
                 console.log(err);
             }
             Weapon.create({name: 'Ragnarok',
-                        cost: '100',
-                        strength: '100'}, function() {
-                done();
+                        cost: 100,
+                        strength: 100}, function() {
+            });
+            Franchise.create({name: 'Final_Fantasy',
+                        publisher: 'SquareEnix'}, function() {
+            }); 
+            Category.create({name: 'Sword',
+                        description: 'Very pointy object'}, function() {
+                done();    
             });
         });
     });
@@ -27,29 +34,33 @@ describe('Weapons', function() {
     after(function(done) {
         Weapon.remove(function() {
         });
-            done();
+        Franchise.remove(function() {
+        });
+        Category.remove(function() {
+           done(); 
+        });
     });
     
     
     it('should list weapon on GET', function(done) {
         chai.request(app)
-            .get('/')
+            .get('/weapon')
             .end(function(err, res) {
                 should.equal(err, null);
                 res.should.have.status(200);
                 res.should.be.json;
-                res.body.should.be.a('object');
-                res.body.should.have.property('_id');
-                res.body.should.have.property('name');
-                res.body.should.have.property('cost');
-                res.body.should.have.property('strength');
-                res.body._id.should.be.a('string');
-                res.body.name.should.be.a('string');
-                res.body.cost.should.be.a('number');
-                res.body.strength.should.be.a('number');
-                res.body.name.should.equal('Ragnarok');
-                res.body.cost.should.equal('100');
-                res.body.strength.should.equal('100');
+                res.body.should.be.a('array');
+                res.body[0].should.have.property('_id');
+                res.body[0].should.have.property('name');
+                res.body[0].should.have.property('cost');
+                res.body[0].should.have.property('strength');
+                res.body[0]._id.should.be.a('string');
+                res.body[0].name.should.be.a('string');
+                res.body[0].cost.should.be.a('number');
+                res.body[0].strength.should.be.a('number');
+                res.body[0].name.should.equal('Ragnarok');
+                res.body[0].cost.should.equal(100);
+                res.body[0].strength.should.equal(100);
                 done();
             });
     });
@@ -61,15 +72,15 @@ describe('Weapons', function() {
                 should.equal(err, null);
                 res.should.have.status(200);
                 res.should.be.json;
-                res.body.should.be.a('object');
-                res.body.should.have.property('_id');
-                res.body.should.have.property('name');
-                res.body.should.have.property('publisher');
-                res.body._id.should.be.a('string');
-                res.body.name.should.be.a('string');
-                res.body.publisher.should.be.a('string');
-                res.body.name.should.equal('Final_Fantasy');
-                res.body.publisher.should.equal('SquareEnix');
+                res.body.should.be.a('array');
+                res.body[0].should.have.property('_id');
+                res.body[0].should.have.property('name');
+                res.body[0].should.have.property('publisher');
+                res.body[0]._id.should.be.a('string');
+                res.body[0].name.should.be.a('string');
+                res.body[0].publisher.should.be.a('string');
+                res.body[0].name.should.equal('Final_Fantasy');
+                res.body[0].publisher.should.equal('SquareEnix');
                 done();
             });
     });
@@ -125,11 +136,11 @@ describe('Weapons', function() {
     it('should add a category on POST', function(done) {
         chai.request(app)
             .post('/category')
-            .send({'name': 'Sword',
-                  'description': 'Very pointy object'})
+            .send({'name': 'Bow_and_Arrow',
+                  'description': 'For hunting'})
             .end(function(err, res) {
                 should.equal(err, null);
-                res.should.have.status(201);
+                res.should.have.status(200);
                 res.should.be.json;
                 res.body.should.be.a('object');
                 res.body.should.have.property('_id');
@@ -141,6 +152,39 @@ describe('Weapons', function() {
                 
                 done();
             });
+    });
+    
+    it('should add a total weapon on POST', function(done) {
+        chai.request(app).get('/weapon').end(function(err, res) {
+            var weaponId = res.body[0]._id;
+            chai.request(app).get('/franchise').end(function(err, res) {
+                var franchiseId = res.body[0]._id;
+                chai.request(app).get('/category').end(function(err, res) {
+                    var categoryId = res.body[0]._id;
+                    chai.request(app)
+            .post('/totalweapon')
+            .send({'weapon': weaponId,
+                  'franchise': franchiseId,
+                  'category' : categoryId
+            })
+            .end(function(err, res) {
+                should.equal(err, null);
+                res.should.have.status(200);
+                res.should.be.json;
+                res.body.should.be.a('object');
+                res.body.should.have.property('weapon');
+                res.body.should.have.property('franchise');
+                res.body.should.have.property('category');
+                res.body._id.should.be.a('string');
+                res.body.weapon.should.be.a('string');
+                res.body.franchise.should.be.a('string');
+                res.body.category.should.be.a('string');
+                
+                done();
+            });
+                });
+            });
+        });
     });
     
     it('should edit an item on PUT', function(done) {
