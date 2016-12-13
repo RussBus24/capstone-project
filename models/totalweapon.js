@@ -4,7 +4,8 @@ var Schema = mongoose.Schema;
 
 var totalWeaponSchema = new mongoose.Schema({
        weapon: {type: Schema.Types.ObjectId, ref: 'Weapon'},
-       franchise: {type: Schema.Types.ObjectId, ref: 'Franchise'}
+       franchise: {type: Schema.Types.ObjectId, ref: 'Franchise'},
+       category: {type: Schema.Types.ObjectId, ref: 'Category'}
     });
     
 var totalWeapon = mongoose.model('totalWeapon', totalWeaponSchema);
