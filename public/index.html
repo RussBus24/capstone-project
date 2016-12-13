@@ -5,14 +5,15 @@
 	<meta charset="UTF-8">
 	<link href='https://fonts.googleapis.com/css?family=Asap' rel='stylesheet' type='text/css'>
 	<script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
+	<script src="apps/app.js"></script>
 </head>
 <body>
 <p>Hello World.</p>
 <p>Enter a weapon:</p>
-<form action="./weapon">
-	Name: <input type="text" name="name">
-	Cost: <input type="text" name="cost">
-	Strength: <input type="text" name="strength">
+<form id="addWeapon">
+	Name: <input id="name" type="text" name="weaponName">
+	Cost: <input type="text" name="weaponCost">
+	Strength: <input type="text" name="weaponStrength">
 </form>
 </body>
 </html>
