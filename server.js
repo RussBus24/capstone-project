@@ -174,6 +174,15 @@ app.post('/totalweapon', function(request, response) {
 });
 
 app.put('/weapon/:name', function(request, response) {
+    request.checkParams("name", "Invalid parameter").notEmpty();
+    
+    var errors = request.validationErrors();
+        if (errors) {
+    console.log(errors);
+    response.send("Looks like there was an error:" + errors.msg);
+    return;
+        }
+    
     Weapon.findOneAndUpdate({name: request.params.name}, {
         name: request.body.name,
         cost: request.body.cost,
@@ -190,6 +199,15 @@ app.put('/weapon/:name', function(request, response) {
 });
 
 app.put('/franchise/:franchise', function(request, response) {
+    request.checkParams("franchise", "Invalid parameter").notEmpty();
+    
+    var errors = request.validationErrors();
+        if (errors) {
+    console.log(errors);
+    response.send("Looks like there was an error:" + errors.msg);
+    return;
+        }
+    
     Franchise.findOneAndUpdate({name: request.params.franchise}, {
         name: request.body.name,
         publisher: request.body.publisher
@@ -204,6 +222,7 @@ app.put('/franchise/:franchise', function(request, response) {
 });
 
 app.delete('/weapon/:name', function(request, response) {
+    
     Weapon.remove({
         name: request.params.name
     }, function(err, weapon) {
@@ -217,6 +236,7 @@ app.delete('/weapon/:name', function(request, response) {
 });
 
 app.delete('/franchise/:franchise', function(request, response) {
+    
     Franchise.remove({
         name: request.params.name
     }, function(err, franchise) {
