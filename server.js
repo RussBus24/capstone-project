@@ -149,8 +149,8 @@ app.post('/category', function(request, response, next) {
 
 app.post('/totalweapon', function(request, response) {
     request.checkBody("weapon", "Invalid weapon").notEmpty();
-    request.checkBody("franchise", "Invalid franchise").isEmpty();
-    request.checkBody("category", "Invalid category").isEmpty();
+    request.checkBody("franchise", "Invalid franchise").notEmpty();
+    request.checkBody("category", "Invalid category").notEmpty();
 
     var errors = request.validationErrors();
         if (errors) {
