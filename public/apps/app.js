@@ -5,7 +5,7 @@ $(document).ready(function(){
 		var addCost = $('#cost').val();
 		var addStrength = $('#strength').val();
 		console.log(addName);
-		sendQuery(addName);
+		sendQuery(addName, addCost, addStrength);
 	});
 });
 
@@ -19,11 +19,14 @@ function sendQuery(addName, addCost, addStrength) {
 	
 	$.ajax({
 		url: "https://russbus-workspace-russbus24.c9users.io/weapon",
-		data: queryData,
-		dataType: "jsonp",
-		processData: false,
-		type: "POST"
+		data: JSON.stringify(queryData),
+		type: "POST",
+		contentType: 'application/json'
 	});	
+	
+	.done(function(data) {
+		console.log(data);
+	});
 	
 	.fail(function(jqXHR, error) {
 		console.log(error);
