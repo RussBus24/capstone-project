@@ -80,7 +80,7 @@ app.post('/weapon', function(request, response, next) {
     var errors = request.validationErrors();
         if (errors) {
     console.log(errors);
-    response.send("Looks like there was an error:" + errors.msg);
+    response.send(errors);
     return;
         }
 
@@ -106,7 +106,7 @@ app.post('/franchise', function(request, response, next) {
     var errors = request.validationErrors();
         if (errors) {
     console.log(errors);
-    response.send("Looks like there was an error:" + errors.msg);
+    response.send(errors);
     return;
         }
     
@@ -130,7 +130,7 @@ app.post('/category', function(request, response, next) {
     var errors = request.validationErrors();
         if (errors) {
     console.log(errors);
-    response.send("Looks like there was an error:" + errors.msg);
+    response.send(errors);
     return;
         }
         
@@ -155,7 +155,7 @@ app.post('/totalweapon', function(request, response) {
     var errors = request.validationErrors();
         if (errors) {
     console.log(errors);
-    response.send("Looks like there was an error:" + errors.msg);
+    response.send(errors);
     return;
         }
     
@@ -204,7 +204,7 @@ app.put('/franchise/:franchise', function(request, response) {
     var errors = request.validationErrors();
         if (errors) {
     console.log(errors);
-    response.send("Looks like there was an error:" + errors.msg);
+    response.send(errors);
     return;
         }
     
