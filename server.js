@@ -125,7 +125,7 @@ app.post('/franchise', function(request, response, next) {
 
 app.post('/category', function(request, response, next) {
     request.checkBody("name", "Please enter a valid category name").notEmpty();
-    request.checkBody("description", "Please enter a description").notEmpty();
+    request.checkBody("describe", "Please enter a description").notEmpty();
 
     var errors = request.validationErrors();
         if (errors) {
@@ -136,7 +136,7 @@ app.post('/category', function(request, response, next) {
         
     Category.create({
         name: request.body.name,
-        description: request.body.description
+        description: request.body.describe
     }, function(err, category) {
         if (err) {
             return response.status(500).json({
