@@ -82,7 +82,7 @@ function sendCategoryQuery(addName, addDescription) {
 	};
 	
 	$.ajax({
-		url: "https://vast-depths-38075.herokuapp.com/franchise",
+		url: "https://vast-depths-38075.herokuapp.com/category",
 		data: JSON.stringify(queryData),
 		type: "POST",
 		contentType: 'application/json'
