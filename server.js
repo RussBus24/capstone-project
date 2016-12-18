@@ -75,7 +75,7 @@ app.get('/category', function(request, response) {
 app.post('/weapon', function(request, response, next) {
     request.checkBody("name", "Please enter a valid weapon name").notEmpty();
     request.checkBody("cost", "Please enter a valid cost number").isInt({min: 1, max: 999});
-    request.checkBody("strength", "Please entera valid strength number").isInt({min: 1, max: 999});
+    request.checkBody("strength", "Please enter a valid strength number").isInt({min: 1, max: 999});
 
     var errors = request.validationErrors();
         if (errors) {
