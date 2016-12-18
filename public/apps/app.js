@@ -18,7 +18,7 @@ function sendQuery(addName, addCost, addStrength) {
 	};
 	
 	$.ajax({
-		url: "https://russbus-workspace-russbus24.c9users.io/weapon",
+		url: "https://vast-depths-38075.herokuapp.com//weapon",
 		data: JSON.stringify(queryData),
 		type: "POST",
 		contentType: 'application/json'
