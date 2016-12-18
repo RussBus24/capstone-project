@@ -6,9 +6,9 @@ $(document).ready(function(){
 		var addStrength = $('#addWeaponStrength').val();
 		console.log(addName);
 		sendWeaponQuery(addName, addCost, addStrength);
-		$('addWeaponName').val('');
-		$('addWeaponCost').val('');
-		$('addWeaponStrength').val('');
+		$('#addWeaponName').val('');
+		$('#addWeaponCost').val('');
+		$('#addWeaponStrength').val('');
 	});
 	$('#addFranchise').submit(function(event) {
 		event.preventDefault();
@@ -16,17 +16,17 @@ $(document).ready(function(){
 		var addPublisher = $('#addPublisherName').val();
 		console.log(addName);
 		sendFranchiseQuery(addName, addPublisher);
-		$('addFranchiseName').val('');
-		$('addPublisherName').val('');
+		$('#addFranchiseName').val('');
+		$('#addPublisherName').val('');
 	});
-	$('addCategory').submit(function(event) {
+	$('#addCategory').submit(function(event) {
 		event.preventDefault();
 		var addName = $('#addCategoryName').val();
 		var addDescription = $('addDescriptionName').val();
 		console.log(addName);
 		sendCategoryQuery(addName, addDescription);
-		$('addCategoryName').val('');
-		$('addDescriptionName').val('');
+		$('#addCategoryName').val('');
+		$('#addDescriptionName').val('');
 	});
 });
 
