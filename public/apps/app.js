@@ -22,11 +22,11 @@ function sendQuery(addName, addCost, addStrength) {
 		data: JSON.stringify(queryData),
 		type: "POST",
 		contentType: 'application/json'
-	});	
+	})	
 	
 	.done(function(data) {
 		console.log(data);
-	});
+	})
 	
 	.fail(function(jqXHR, error) {
 		console.log(error);
