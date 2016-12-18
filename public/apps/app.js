@@ -3,9 +3,12 @@ $(document).ready(function(){
 		event.preventDefault();
 		var addName = $('#addWeaponName').val();
 		var addCost = $('#addWeaponCost').val();
-		var addStrength = $('#strength').val();
+		var addStrength = $('#addWeaponStrength').val();
 		console.log(addName);
 		sendWeaponQuery(addName, addCost, addStrength);
+		$('addWeaponName').val('');
+		$('addWeaponCost').val('');
+		$('addWeaponStrength').val('');
 	});
 	$('#addFranchise').submit(function(event) {
 		event.preventDefault();
@@ -13,11 +16,20 @@ $(document).ready(function(){
 		var addPublisher = $('#addPublisherName').val();
 		console.log(addName);
 		sendFranchiseQuery(addName, addPublisher);
+		$('addFranchiseName').val('');
+		$('addPublisherName').val('');
+	});
+	$('addCategory').submit(function(event) {
+		event.preventDefault();
+		var addName = $('#addCategoryName').val();
+		var addDescription = $('addDescriptionName').val();
+		sendCategoryQuery(addName, addDescription);
+		$('addCategoryName').val('');
+		$('addDescriptionName').val('');
 	});
 });
 
 function sendWeaponQuery(addName, addCost, addStrength) {
-	
 	var queryData = {
 		name: addName,
 		cost: addCost,
@@ -41,10 +53,31 @@ function sendWeaponQuery(addName, addCost, addStrength) {
 }
 
 function sendFranchiseQuery(addName, addPublisher) {
-	
 	var queryData = {
 		name: addName,
 		publisher: addPublisher
+	};
+	
+	$.ajax({
+		url: "https://vast-depths-38075.herokuapp.com/franchise",
+		data: JSON.stringify(queryData),
+		type: "POST",
+		contentType: 'application/json'
+	})
+	
+	.done(function(data) {
+		console.log(data);
+	})
+	
+	.fail(function(jqXHR, error) {
+		console.log(error);
+	});
+}
+
+function sendCategoryQuery(addName, addDescription) {
+	var queryData = {
+		name: addName,
+		description: addDescription
 	};
 	
 	$.ajax({
