@@ -137,7 +137,7 @@ describe('Weapons', function() {
         chai.request(app)
             .post('/category')
             .send({'name': 'Bow_and_Arrow',
-                  'description': 'For hunting'})
+                  'describe': 'For hunting'})
             .end(function(err, res) {
                 should.equal(err, null);
                 res.should.have.status(200);
@@ -145,7 +145,7 @@ describe('Weapons', function() {
                 res.body.should.be.a('object');
                 res.body.should.have.property('_id');
                 res.body.should.have.property('name');
-                res.body.should.have.property('description');
+                res.body.should.have.property('describe');
                 res.body._id.should.be.a('string');
                 res.body.name.should.be.a('string');
                 res.body.description.should.be.a('string');
