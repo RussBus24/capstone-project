@@ -28,6 +28,14 @@ $(document).ready(function(){
 		$('#addCategoryName').val('');
 		$('#addDescriptionName').val('');
 	});
+	$('#addTotalWeapon').submit(function(event) {
+		event.preventDefault();
+		var addWeapon = $('#addTotalWeaponName').val();
+		var addFranchise = $('#addTotalWeaponFranchise').val();
+		var addCategory = $('#addTotalWeaponCategory').val();
+		console.log(addWeapon, addFranchise, addCategory);
+		sendTotalWeaponQuery(addWeapon, addFranchise, addCategory);
+	});
 });
 
 function sendWeaponQuery(addName, addCost, addStrength) {
@@ -83,6 +91,29 @@ function sendCategoryQuery(addName, addDescription) {
 	
 	$.ajax({
 		url: "https://vast-depths-38075.herokuapp.com/category",
+		data: JSON.stringify(queryData),
+		type: "POST",
+		contentType: 'application/json'
+	})
+	
+	.done(function(data) {
+		console.log(data);
+	})
+	
+	.fail(function(jqXHR, error) {
+		console.log(error);
+	});
+}
+
+function sendTotalWeaponQuery(addWeapon, addFranchise, addCategory) {
+	var queryData = {
+		weapon: addWeapon,
+		franchise: addFranchise,
+		category: addCategory
+	};
+	
+	$.ajax({
+		url: "https://vast-depths-38075.herokuapp.com/totalweapon",
 		data: JSON.stringify(queryData),
 		type: "POST",
 		contentType: 'application/json'
