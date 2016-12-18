@@ -22,7 +22,7 @@ $(document).ready(function(){
 	$('#addCategory').submit(function(event) {
 		event.preventDefault();
 		var addName = $('#addCategoryName').val();
-		var addDescription = $('addDescriptionName').val();
+		var addDescription = $('#addDescriptionName').val();
 		console.log(addName);
 		sendCategoryQuery(addName, addDescription);
 		$('#addCategoryName').val('');
