@@ -78,7 +78,7 @@ function sendFranchiseQuery(addName, addPublisher) {
 function sendCategoryQuery(addName, addDescription) {
 	var queryData = {
 		name: addName,
-		description: addDescription
+		describe: addDescription
 	};
 	
 	$.ajax({
