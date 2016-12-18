@@ -145,7 +145,7 @@ describe('Weapons', function() {
                 res.body.should.be.a('object');
                 res.body.should.have.property('_id');
                 res.body.should.have.property('name');
-                res.body.should.have.property('describe');
+                res.body.should.have.property('description');
                 res.body._id.should.be.a('string');
                 res.body.name.should.be.a('string');
                 res.body.description.should.be.a('string');
