@@ -72,6 +72,17 @@ app.get('/category', function(request, response) {
     });
 });
 
+app.get('/totalweapon', function(request, response) {
+    TotalWeapon.find(function(err, totalweapon) {
+        if (err) {
+            return response.status(500).json({
+                message: 'A server error occured'
+            });
+        }
+        response.json(totalweapon);
+    });
+});
+
 app.post('/weapon', function(request, response, next) {
     request.checkBody("name", "Please enter a valid weapon name").notEmpty();
     request.checkBody("cost", "Please enter a valid cost number").isInt({min: 1, max: 999});
