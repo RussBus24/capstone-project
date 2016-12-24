@@ -80,6 +80,21 @@ app.get('/totalweapon', function(request, response) {
             });
         }
         response.json(totalweapon);
+        console.log(totalweapon[0]);
+    });
+});
+
+app.get('/test/:id', function(request, response) {
+    TotalWeapon.findById(request.params.id)
+    .populate('weapon')
+    .exec(function(err, totalweapon) {
+        if (err) {
+            return response.status(500).json({
+                message: 'A server error occured'
+            });
+        }
+        response.json(totalweapon);
+        console.log(totalweapon);
     });
 });
 

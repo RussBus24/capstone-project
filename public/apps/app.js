@@ -36,6 +36,10 @@ $(document).ready(function(){
 		console.log(addWeapon, addFranchise, addCategory);
 		sendTotalWeaponQuery(addWeapon, addFranchise, addCategory);
 	});
+	$('#test').submit(function(event) {
+		event.preventDefault();
+		testQuery();
+	});
 });
 
 function sendWeaponQuery(addName, addCost, addStrength) {
@@ -125,5 +129,13 @@ function sendTotalWeaponQuery(addWeapon, addFranchise, addCategory) {
 	
 	.fail(function(jqXHR, error) {
 		console.log(error);
+	});
+}
+
+function testQuery() {
+	var url="https://russbus-workspace-russbus24.c9users.io/totalweapon";
+	
+	$.getJSON(url, function(data) {
+		console.log(data);
 	});
 }
