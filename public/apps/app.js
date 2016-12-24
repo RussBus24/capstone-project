@@ -40,7 +40,27 @@ $(document).ready(function(){
 		event.preventDefault();
 		testQuery();
 	});
+	loadData();
 });
+
+function loadData() {
+	$.ajax({
+		url: "https://vast-depths-38075.herokuapp.com/weapon",
+		type: "GET",
+		contentType: 'application/json'
+	})
+	.done(function(data) {
+		data.forEach(function(weapon) {
+			var option = $('<option>', {value:weapon._id, text:weapon.name});
+			$('#addTotalWeaponName').append(option);
+		});
+	})
+	
+	.fail(function(jqXHR, error) {
+		console.log(error);
+	});
+}
+
 
 function sendWeaponQuery(addName, addCost, addStrength) {
 	var queryData = {
